@@ -24,7 +24,12 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
+        id: abcd
         run: |
           out=$(cat output.json)
           encoded_output=$(echo "$out" | jq -c . | tr -d '^J')
           echo "output=$encoded_output" >> $GITHUB_OUTPUT
+
+      - name: Test
+        run: |
+          echo ${{steps.abcd.outputs.output}}
